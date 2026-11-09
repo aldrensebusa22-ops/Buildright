@@ -3,6 +3,14 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import './App.css';
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  axios.interceptors.request.use((config) => {
+    if (typeof config.url === 'string') {
+      config.url = config.url.replace('http://localhost:5000', API_URL);
+    }
+    return config;
+  });
+  
 function App() {
   // Navigation & Data States
   const [activeTab, setActiveTab] = useState('dashboard');
